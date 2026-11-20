@@ -1,0 +1,31 @@
+{
+ "method": "Object-level: alerts the detector would have raised for Sep-Oct 2024 vs Sep-Oct 2023, checked against Hansen GFC v1.13 2024 loss (30 m buffer)",
+ "districts": [
+  "Haripur",
+  "Malakand",
+  "Mansehra",
+  "Swat",
+  "Upper Dir"
+ ],
+ "alerts_all": 491,
+ "precision_all": 0.151,
+ "alerts_high": 153,
+ "precision_high": 0.346,
+ "hansen_hits_kept_by_high": "53/74",
+ "per_district": {
+  "Haripur": 0.109,
+  "Malakand": 0.0,
+  "Mansehra": 0.08,
+  "Swat": 0.407,
+  "Upper Dir": 0.424
+ },
+ "pixel_level_kp": {
+  "precision": 0.02,
+  "recall_lower_bound": 0.391,
+  "tp": 2396,
+  "fp": 118649,
+  "fn": 3738,
+  "districts_ok": 28
+ },
+ "caveat": "Hansen is not ground truth (misses some scrub-forest clearing); thresholds for 'high' were chosen on this same sample."
+}

@@ -1,0 +1,20 @@
+{
+ "Swat": {
+  "alerts": 59,
+  "ha": 64.5,
+  "obj_precision_2024": 0.407,
+  "obj_precision_2023_24": 0.407
+ },
+ "Malakand": {
+  "alerts": 39,
+  "ha": 53.0,
+  "obj_precision_2024": 0.0,
+  "obj_precision_2023_24": 0.0
+ },
+ "Haripur": {
+  "alerts": 248,
+  "ha": 528.4,
+  "obj_precision_2024": 0.109,
+  "obj_precision_2023_24": 0.113
+ }
+}

@@ -1,0 +1,232 @@
+{
+ "class_names": [
+  "undisturbed",
+  "logging",
+  "disease_drought",
+  "fire",
+  "other_natural"
+ ],
+ "feature_names": [
+  "ndvi_pre",
+  "ndvi_post_min",
+  "ndvi_post_med",
+  "ndvi_drop",
+  "ndvi_rel_drop",
+  "nbr_pre",
+  "nbr_post_min",
+  "nbr_post_med",
+  "nbr_drop",
+  "nbr_rel_drop",
+  "ndmi_pre",
+  "ndmi_post_min",
+  "ndmi_post_med",
+  "ndmi_drop",
+  "ndmi_rel_drop",
+  "ndvi_pre_slope",
+  "ndmi_pre_slope",
+  "ndvi_pre_std",
+  "ndvi_early_late_diff",
+  "ndmi_early_late_diff",
+  "swir_ratio_post",
+  "b11_change",
+  "doy_sin",
+  "doy_cos"
+ ],
+ "label_to_class": {
+  "110": "undisturbed",
+  "211": "logging",
+  "212": "logging",
+  "213": "logging",
+  "220": "logging",
+  "221": "logging",
+  "222": "logging",
+  "230": "disease_drought",
+  "231": "disease_drought",
+  "232": "disease_drought",
+  "241": "disease_drought",
+  "242": "fire",
+  "243": "other_natural",
+  "244": "other_natural",
+  "245": "other_natural"
+ },
+ "n_events": 5937,
+ "events_per_class": {
+  "undisturbed": 3491,
+  "logging": 1421,
+  "other_natural": 442,
+  "fire": 294,
+  "disease_drought": 289
+ },
+ "cv": {
+  "scheme": "StratifiedGroupKFold(5) by DISFOR cluster_id",
+  "macro_f1": 0.7138,
+  "per_class": {
+   "undisturbed": {
+    "precision": 0.8952,
+    "recall": 0.9032,
+    "f1-score": 0.8992,
+    "support": 3491.0
+   },
+   "logging": {
+    "precision": 0.7394,
+    "recall": 0.7389,
+    "f1-score": 0.7392,
+    "support": 1421.0
+   },
+   "disease_drought": {
+    "precision": 0.4432,
+    "recall": 0.5675,
+    "f1-score": 0.4977,
+    "support": 289.0
+   },
+   "fire": {
+    "precision": 0.9443,
+    "recall": 0.9218,
+    "f1-score": 0.9329,
+    "support": 294.0
+   },
+   "other_natural": {
+    "precision": 0.5769,
+    "recall": 0.4412,
+    "f1-score": 0.5,
+    "support": 442.0
+   }
+  },
+  "confusion_matrix": [
+   [
+    3153,
+    222,
+    59,
+    9,
+    48
+   ],
+   [
+    217,
+    1050,
+    77,
+    5,
+    72
+   ],
+   [
+    58,
+    43,
+    164,
+    2,
+    22
+   ],
+   [
+    9,
+    5,
+    8,
+    271,
+    1
+   ],
+   [
+    85,
+    100,
+    62,
+    0,
+    195
+   ]
+  ]
+ },
+ "feature_importance": [
+  [
+   "nbr_post_min",
+   0.1801406890153885
+  ],
+  [
+   "nbr_rel_drop",
+   0.08504746109247208
+  ],
+  [
+   "ndmi_drop",
+   0.07523219287395477
+  ],
+  [
+   "doy_cos",
+   0.053648047149181366
+  ],
+  [
+   "b11_change",
+   0.05145294964313507
+  ],
+  [
+   "ndvi_post_med",
+   0.04852207750082016
+  ],
+  [
+   "nbr_drop",
+   0.04301328957080841
+  ],
+  [
+   "nbr_post_med",
+   0.042704544961452484
+  ],
+  [
+   "doy_sin",
+   0.04064491018652916
+  ],
+  [
+   "ndmi_rel_drop",
+   0.03912311792373657
+  ],
+  [
+   "ndmi_post_med",
+   0.037913281470537186
+  ],
+  [
+   "swir_ratio_post",
+   0.034104980528354645
+  ],
+  [
+   "ndmi_pre_slope",
+   0.027752650901675224
+  ],
+  [
+   "ndvi_pre",
+   0.026885749772191048
+  ],
+  [
+   "ndvi_early_late_diff",
+   0.024844475090503693
+  ],
+  [
+   "ndvi_drop",
+   0.02450985088944435
+  ],
+  [
+   "nbr_pre",
+   0.024435119703412056
+  ],
+  [
+   "ndmi_early_late_diff",
+   0.022992132231593132
+  ],
+  [
+   "ndvi_pre_slope",
+   0.02272883616387844
+  ],
+  [
+   "ndvi_pre_std",
+   0.020094800740480423
+  ],
+  [
+   "ndvi_rel_drop",
+   0.019997989758849144
+  ],
+  [
+   "ndmi_post_min",
+   0.019712816923856735
+  ],
+  [
+   "ndmi_pre",
+   0.018196363002061844
+  ],
+  [
+   "ndvi_post_min",
+   0.016301671043038368
+  ]
+ ],
+ "source": "DISFOR doi:10.57967/hf/7983 (EUPL-1.2)"
+}

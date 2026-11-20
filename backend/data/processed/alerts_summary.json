@@ -1,0 +1,563 @@
+{
+ "generated": "2026-11-21T00:31:25",
+ "districts": [
+  {
+   "district": "Abbottabad",
+   "alerts": 40,
+   "area_ha": 41.3,
+   "by_type": {
+    "logging": 40
+   },
+   "truncated": false,
+   "seconds": 34.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Bajaur",
+   "alerts": 19,
+   "area_ha": 47.8,
+   "by_type": {
+    "logging": 19
+   },
+   "truncated": false,
+   "seconds": 34.5,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Bannu",
+   "alerts": 0,
+   "area_ha": 0,
+   "by_type": {},
+   "truncated": false,
+   "seconds": 20.9,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Battagram",
+   "alerts": 18,
+   "area_ha": 30.2,
+   "by_type": {
+    "logging": 18
+   },
+   "truncated": false,
+   "seconds": 22.6,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Buner",
+   "alerts": 26,
+   "area_ha": 29.0,
+   "by_type": {
+    "logging": 26
+   },
+   "truncated": false,
+   "seconds": 47.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Charsadda",
+   "alerts": 3,
+   "area_ha": 2.0,
+   "by_type": {
+    "logging": 3
+   },
+   "truncated": false,
+   "seconds": 37.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Chitral",
+   "alerts": 18,
+   "area_ha": 19.9,
+   "by_type": {
+    "logging": 18
+   },
+   "truncated": false,
+   "seconds": 141.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Dera Ismail Khan",
+   "alerts": 20,
+   "area_ha": 21.0,
+   "by_type": {
+    "logging": 20
+   },
+   "truncated": false,
+   "seconds": 59.4,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Hangu",
+   "alerts": 2,
+   "area_ha": 1.5,
+   "by_type": {
+    "logging": 2
+   },
+   "truncated": false,
+   "seconds": 21.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Haripur",
+   "alerts": 90,
+   "area_ha": 165.9,
+   "by_type": {
+    "logging": 88,
+    "encroachment": 2
+   },
+   "truncated": false,
+   "seconds": 37.0,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Karak",
+   "alerts": 2,
+   "area_ha": 2.2,
+   "by_type": {
+    "logging": 2
+   },
+   "truncated": false,
+   "seconds": 32.4,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Khyber",
+   "alerts": 25,
+   "area_ha": 52.7,
+   "by_type": {
+    "logging": 25
+   },
+   "truncated": false,
+   "seconds": 30.4,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Kohat",
+   "alerts": 5,
+   "area_ha": 4.2,
+   "by_type": {
+    "logging": 5
+   },
+   "truncated": false,
+   "seconds": 52.3,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Kohistan",
+   "alerts": 23,
+   "area_ha": 17.6,
+   "by_type": {
+    "logging": 22,
+    "encroachment": 1
+   },
+   "truncated": false,
+   "seconds": 87.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Kurram",
+   "alerts": 14,
+   "area_ha": 35.0,
+   "by_type": {
+    "logging": 14
+   },
+   "truncated": false,
+   "seconds": 33.0,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Lakki Marwat",
+   "alerts": 4,
+   "area_ha": 4.7,
+   "by_type": {
+    "logging": 4
+   },
+   "truncated": false,
+   "seconds": 30.0,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Lower Dir",
+   "alerts": 83,
+   "area_ha": 121.8,
+   "by_type": {
+    "logging": 83
+   },
+   "truncated": false,
+   "seconds": 39.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Malakand",
+   "alerts": 133,
+   "area_ha": 295.3,
+   "by_type": {
+    "logging": 133
+   },
+   "truncated": false,
+   "seconds": 34.9,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Mansehra",
+   "alerts": 28,
+   "area_ha": 50.2,
+   "by_type": {
+    "logging": 28
+   },
+   "truncated": false,
+   "seconds": 43.2,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Mardan",
+   "alerts": 21,
+   "area_ha": 46.1,
+   "by_type": {
+    "logging": 21
+   },
+   "truncated": false,
+   "seconds": 52.2,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Mohmand",
+   "alerts": 22,
+   "area_ha": 34.6,
+   "by_type": {
+    "logging": 22
+   },
+   "truncated": false,
+   "seconds": 35.5,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "North Waziristan",
+   "alerts": 10,
+   "area_ha": 10.2,
+   "by_type": {
+    "logging": 9,
+    "encroachment": 1
+   },
+   "truncated": false,
+   "seconds": 72.7,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Nowshera",
+   "alerts": 65,
+   "area_ha": 113.6,
+   "by_type": {
+    "logging": 65
+   },
+   "truncated": false,
+   "seconds": 61.4,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Orakzai",
+   "alerts": 25,
+   "area_ha": 32.4,
+   "by_type": {
+    "logging": 25
+   },
+   "truncated": false,
+   "seconds": 30.2,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Peshawar",
+   "alerts": 17,
+   "area_ha": 13.3,
+   "by_type": {
+    "logging": 17
+   },
+   "truncated": false,
+   "seconds": 21.0,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Shangla",
+   "alerts": 10,
+   "area_ha": 10.6,
+   "by_type": {
+    "logging": 10
+   },
+   "truncated": false,
+   "seconds": 46.4,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "South Waziristan",
+   "alerts": 10,
+   "area_ha": 10.6,
+   "by_type": {
+    "logging": 10
+   },
+   "truncated": false,
+   "seconds": 86.4,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Swabi",
+   "alerts": 15,
+   "area_ha": 13.6,
+   "by_type": {
+    "logging": 15
+   },
+   "truncated": false,
+   "seconds": 53.8,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Swat",
+   "alerts": 55,
+   "area_ha": 75.6,
+   "by_type": {
+    "logging": 55
+   },
+   "truncated": false,
+   "seconds": 82.5,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Tank",
+   "alerts": 0,
+   "area_ha": 0,
+   "by_type": {},
+   "truncated": false,
+   "seconds": 18.0,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  },
+  {
+   "district": "Upper Dir",
+   "alerts": 20,
+   "area_ha": 30.6,
+   "by_type": {
+    "logging": 20
+   },
+   "truncated": false,
+   "seconds": 76.1,
+   "recent_window": [
+    "2026-09-22",
+    "2026-11-21"
+   ],
+   "prior_window": [
+    "2025-09-22",
+    "2025-11-21"
+   ]
+  }
+ ],
+ "failed": []
+}

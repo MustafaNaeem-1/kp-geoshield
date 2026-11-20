@@ -1,0 +1,111 @@
+{
+ "features": [
+  "elevation",
+  "slope",
+  "northness",
+  "eastness",
+  "precip_annual",
+  "precip_monsoon",
+  "t_mean",
+  "t_summer_max",
+  "soil_clay",
+  "soil_sand",
+  "twi",
+  "dist_stream_m"
+ ],
+ "feature_labels": {
+  "elevation": "Elevation (m)",
+  "slope": "Slope (deg)",
+  "northness": "North-facing",
+  "eastness": "East-facing",
+  "precip_annual": "Annual rainfall (mm)",
+  "precip_monsoon": "Monsoon rainfall (mm)",
+  "t_mean": "Mean temperature (C)",
+  "t_summer_max": "Summer max temp (C)",
+  "soil_ph": "Soil pH",
+  "soil_clay": "Soil clay (g/kg)",
+  "soil_sand": "Soil sand (g/kg)",
+  "soil_soc": "Soil organic carbon",
+  "twi": "Topographic wetness",
+  "dist_stream_m": "Distance to stream (m)"
+ },
+ "label_definition": "PK-LULC rangeland/barren/agriculture 2010 -> forest 2020 with S2 NDVI(Jun-Sep 2024) >= 0.4 (established) vs stayed non-forest (not established). Proxy for survival, not field data.",
+ "n_samples": 8886,
+ "class_counts": [
+  5115,
+  3771
+ ],
+ "cv": {
+  "scheme": "GroupKFold(5) on 0.25 deg spatial blocks",
+  "auc": 0.9022,
+  "fold_aucs": [
+   0.9025,
+   0.8763,
+   0.8887,
+   0.918,
+   0.9269
+  ]
+ },
+ "shap_importance": [
+  {
+   "feature": "elevation",
+   "label": "Elevation (m)",
+   "mean_abs_shap": 1.3628
+  },
+  {
+   "feature": "slope",
+   "label": "Slope (deg)",
+   "mean_abs_shap": 0.7151
+  },
+  {
+   "feature": "northness",
+   "label": "North-facing",
+   "mean_abs_shap": 0.7023
+  },
+  {
+   "feature": "precip_annual",
+   "label": "Annual rainfall (mm)",
+   "mean_abs_shap": 0.4794
+  },
+  {
+   "feature": "soil_sand",
+   "label": "Soil sand (g/kg)",
+   "mean_abs_shap": 0.3147
+  },
+  {
+   "feature": "eastness",
+   "label": "East-facing",
+   "mean_abs_shap": 0.3039
+  },
+  {
+   "feature": "precip_monsoon",
+   "label": "Monsoon rainfall (mm)",
+   "mean_abs_shap": 0.3033
+  },
+  {
+   "feature": "t_mean",
+   "label": "Mean temperature (C)",
+   "mean_abs_shap": 0.2791
+  },
+  {
+   "feature": "t_summer_max",
+   "label": "Summer max temp (C)",
+   "mean_abs_shap": 0.2387
+  },
+  {
+   "feature": "soil_clay",
+   "label": "Soil clay (g/kg)",
+   "mean_abs_shap": 0.1662
+  },
+  {
+   "feature": "dist_stream_m",
+   "label": "Distance to stream (m)",
+   "mean_abs_shap": 0.1237
+  },
+  {
+   "feature": "twi",
+   "label": "Topographic wetness",
+   "mean_abs_shap": 0.0903
+  }
+ ]
+}

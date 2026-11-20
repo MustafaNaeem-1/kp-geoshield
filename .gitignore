@@ -1,0 +1,12 @@
+backend/.venv/
+backend/.env
+backend/data/raw/
+backend/data/processed/_*
+backend/data/processed/lodia_*
+__pycache__/
+*.pyc
+.pytest_cache/
+frontend/node_modules/
+frontend/dist/
+*.tmp
+*.part
