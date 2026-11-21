@@ -1,0 +1,1 @@
+{"saved_at": 1795235958.1588254, "data": {"cause": "logging", "confidence": 0.532, "probabilities": {"undisturbed": 0.096, "logging": 0.532, "disease_drought": 0.079, "fire": 0.001, "other_natural": 0.292}, "model_note": "Trained on European DISFOR labels (Sentinel-2); apply with caution in KP.", "event_date": "2026-02-01"}}

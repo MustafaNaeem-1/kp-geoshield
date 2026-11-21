@@ -80,7 +80,17 @@ export type Summary = {
   _stale?: boolean
 }
 
-export type Fire = { lon: number; lat: number; date: string; brightness_k: number; confidence: number | string; source: string }
+export type Fire = {
+  lon: number
+  lat: number
+  date: string
+  brightness_k: number
+  confidence: number | string
+  source: string
+  forest_pct?: number
+  land_class?: string
+  in_forest?: boolean
+}
 
 export type Explain = {
   survival?: {

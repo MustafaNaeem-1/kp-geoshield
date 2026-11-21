@@ -20,7 +20,33 @@ maplibregl.setWorkerUrl('/maplibre-gl-worker.mjs')
 
 const LIVE_MINZOOM = 9
 const OVERLAY_MAXZOOM = 11
-const KP_BOUNDS:[number, number, number, number] = [69.2, 31.0, 74.2, 37.1]
+const esc = (v: unknown) => String(v ?? '—').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
+
+function firePopupHtml(p: Record<string, unknown>): string {
+  const k = Number(p.brightness_k)
+  const temp = Number.isFinite(k) ? `${Math.round(k)} K (${Math.round(k - 273.15)} °C at the sensor)` : '—'
+  const known = p.in_forest !== undefined && p.in_forest !== null
+  const inForest = p.in_forest === true || p.in_forest === 'true'
+  const verdict = !known
+    ? '<div class="fp-note">Land type not checked yet.</div>'
+    : inForest
+      ? `<div class="fp-tag fp-forest">🔥 Forest fire — ${esc(p.forest_pct)}% of this ~1 km pixel is forest</div>`
+      : `<div class="fp-tag fp-farm">Not in forest — ${esc(p.land_class)} land (${esc(p.forest_pct)}% forest). Likely crop-residue burning or a kiln.</div>`
+  return `
+    <div class="fp">
+      <div class="fp-title">Active fire hotspot</div>
+      ${verdict}
+      <table>
+        <tr><td>Detected</td><td>${esc(p.date)}</td></tr>
+        <tr><td>Brightness</td><td>${esc(temp)}</td></tr>
+        <tr><td>Confidence</td><td>${esc(p.confidence)}${typeof p.confidence === 'number' ? '%' : ''}</td></tr>
+        <tr><td>Location</td><td>${Number(p.lat).toFixed(4)}, ${Number(p.lon).toFixed(4)}</td></tr>
+        <tr><td>Source</td><td>${esc(p.source)}</td></tr>
+      </table>
+    </div>`
+}
+
+const KP_BOUNDS: [number, number, number, number] = [69.2, 31.0, 74.2, 37.1]
 const EMPTY: GeoJSON.FeatureCollection = { type: 'FeatureCollection', features: [] }
 
 export type Overlays = Record<string, { url: string; coordinates: [number, number][] }>
@@ -105,8 +131,25 @@ export function MapView(p: Props) {
         id: 'fires',
         type: 'circle',
         source: 'fires',
-        paint: { 'circle-radius': 6, 'circle-color': '#ffd60a', 'circle-stroke-color': '#7a2e00', 'circle-stroke-width': 2 },
+        paint: {
+          'circle-radius': ['case', ['==', ['get', 'in_forest'], true], 8, 6],
+          'circle-color': ['case', ['==', ['get', 'in_forest'], true], '#ff5e00', '#ffd60a'],
+          'circle-stroke-color': '#7a2e00',
+          'circle-stroke-width': 2,
+        },
       })
+      m.on('click', 'fires', (e: MapLayerMouseEvent) => {
+        const f = e.features?.[0]
+        if (!f) return
+        const p = f.properties as Record<string, unknown>
+        const coords = (f.geometry as GeoJSON.Point).coordinates as [number, number]
+        new maplibregl.Popup({ closeButton: true, maxWidth: '260px', className: 'fire-popup' })
+          .setLngLat(coords)
+          .setHTML(firePopupHtml(p))
+          .addTo(m)
+      })
+      m.on('mouseenter', 'fires', () => (m.getCanvas().style.cursor = 'pointer'))
+      m.on('mouseleave', 'fires', () => (m.getCanvas().style.cursor = ''))
       for (const id of ['alerts-fill', 'alerts-pts']) {
         m.on('click', id, (e: MapLayerMouseEvent) => {
           const f = e.features?.[0]
@@ -116,7 +159,7 @@ export function MapView(p: Props) {
         m.on('mouseleave', id, () => (m.getCanvas().style.cursor = ''))
       }
       m.on('click', 'districts-fill', (e: MapLayerMouseEvent) => {
-        const hit = m.queryRenderedFeatures(e.point, { layers: ['alerts-fill', 'alerts-pts'] })
+        const hit = m.queryRenderedFeatures(e.point, { layers: ['alerts-fill', 'alerts-pts', 'fires'] })
         if (!hit.length && e.features?.[0]) cb.current.onSelectDistrict(String(e.features[0].properties.district))
       })
       ready.current = true

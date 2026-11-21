@@ -1,0 +1,1 @@
+{"saved_at": 1795237296.452387, "data": {"cause": "undisturbed", "confidence": 0.677, "probabilities": {"undisturbed": 0.677, "logging": 0.142, "disease_drought": 0.009, "fire": 0.003, "other_natural": 0.169}, "model_note": "Trained on European DISFOR labels (Sentinel-2); apply with caution in KP.", "event_date": "2025-11-22"}}

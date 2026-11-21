@@ -60,7 +60,35 @@ def fire_near(lon: float, lat: float, date: str, km: float = 1.0, days: int = 10
     return bool(ee.Algorithms.If(hit, hit, 0).getInfo())
 
 
+FOREST_SHARE_MIN = 30  # % of the ~1 km fire pixel that must be forest to call it a forest fire
+
+
+def annotate_land(fires: list[dict]) -> list[dict]:
+    """Add land type under each fire: % forest within the ~1 km FIRMS pixel + dominant PK-LULC class.
+
+    Lets the UI tell a forest fire from crop-stubble burning or brick kilns on farmland.
+    """
+    if not fires:
+        return fires
+    from app.core.assets import LULC_CLASSES
+    from app.modules.forest.forest_mask import forest_mask, pk_lulc
+
+    fc = ee.FeatureCollection([ee.Feature(ee.Geometry.Point([f["lon"], f["lat"]]).buffer(500), {"i": i})
+                               for i, f in enumerate(fires)])
+    img = forest_mask().unmask(0).multiply(100).rename("forest_pct").addBands(pk_lulc(2020).rename("lulc"))
+    reducer = ee.Reducer.mean().forEach(["forest_pct"]).combine(ee.Reducer.mode().forEach(["lulc"]), sharedInputs=False)
+    res = img.reduceRegions(collection=fc, reducer=reducer, scale=30).getInfo()["features"]
+    for r in res:
+        p = r["properties"]
+        f = fires[p["i"]]
+        pct = round(p.get("forest_pct") or 0, 1)
+        lulc = p.get("lulc")
+        f["forest_pct"] = pct
+        f["land_class"] = LULC_CLASSES.get(int(lulc), "Unknown") if lulc is not None else "Unknown"
+        f["in_forest"] = pct >= FOREST_SHARE_MIN
+    return fires
+
+
 def get_fires(region: ee.Geometry, days: int = 7) -> list[dict]:
-    if settings.firms_key:
-        return fires_api(days)
-    return fires_ee(region, days)
+    fires = fires_api(days) if settings.firms_key else fires_ee(region, days)
+    return annotate_land(fires)

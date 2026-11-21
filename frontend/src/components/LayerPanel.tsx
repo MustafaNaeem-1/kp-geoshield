@@ -3,7 +3,7 @@ import type { LayerKey, Visibility } from './MapView'
 
 const ITEMS: { key: LayerKey; label: string; legend?: [string, string][] }[] = [
   { key: 'alerts', label: 'Logging & encroachment alerts', legend: [['#ff3b30', 'Logging'], ['#ff9f0a', 'Encroachment']] },
-  { key: 'fires', label: 'Active fires (7 days)', legend: [['#ffd60a', 'Fire hotspot']] },
+  { key: 'fires', label: 'Active fires (7 days) — click for details', legend: [['#ff5e00', 'In forest'], ['#ffd60a', 'Farmland / other']] },
   { key: 'health', label: 'Canopy health (live)', legend: [['#2e7d32', 'Healthy'], ['#f9a825', 'Stressed'], ['#c62828', 'Severe decline']] },
   { key: 'suitability', label: 'Planting suitability', legend: [['#d73027', 'Low'], ['#fee08b', 'Medium'], ['#1a9850', 'High']] },
   { key: 'forest_mask', label: 'Forest extent', legend: [['#1b5e20', 'Forest']] },
