@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # lets routes impo
 from app.core.config import settings  # noqa: E402
 from app.core.ee_client import ee_status, init_ee  # noqa: E402
 from app.modules.forest.routes import router as forest_router  # noqa: E402
+from app.modules.forest.tiles import router as tiles_router  # noqa: E402
 
 app = FastAPI(title="KP GeoShield API", version="0.1.0")
 
@@ -24,6 +25,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(tiles_router)  # registered first: /api/forest/tiles/... must not hit other routes
 app.include_router(forest_router)
 
 

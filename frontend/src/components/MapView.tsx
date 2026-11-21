@@ -189,10 +189,11 @@ export function MapView(p: Props) {
       }
       if (m.getLayer(osrc)) m.setLayoutProperty(osrc, 'visibility', visible[r.key] ? 'visible' : 'none')
       const src = `ee-${r.key}`
-      const url = layers?.[r.key]?.url
-      if (url && !layers?._stale && !m.getSource(src)) {
-        // Live EE tiles only from district zoom up: a province-wide view requests dozens of tiles at once
-        // and Earth Engine answers 429 (rate limit). The snapshot overlay covers wider views.
+      // Tiles go through the backend proxy (disk cache + throttling + retry) instead of straight to
+      // Earth Engine, which rate-limits (HTTP 429) bursts of browser requests.
+      const url = layers?.[r.key]?.url ? `${window.location.origin}/api/forest/tiles/${r.key}/{z}/{x}/{y}.png` : null
+      if (url && !m.getSource(src)) {
+        // Live tiles only from district zoom up; the snapshot overlay covers wider views.
         const minzoom = ov && r.key !== 'satellite_recent' ? LIVE_MINZOOM : 0
         m.addSource(src, { type: 'raster', tiles: [url], tileSize: 256, minzoom, attribution: 'Google Earth Engine' })
         m.addLayer({ id: src, type: 'raster', source: src, minzoom, paint: { 'raster-opacity': r.opacity } }, 'districts-fill')

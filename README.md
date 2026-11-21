@@ -43,6 +43,7 @@ npm run dev
 cd backend
 .\.venv\Scripts\python scripts\precompute_alerts.py      # alerts for 31 districts (~15 min)
 .\.venv\Scripts\python scripts\make_overlays.py          # offline map overlays
+.\.venv\Scripts\python scripts\warm_tiles.py             # pre-fetch live map tiles over KP (~20 min)
 .\.venv\Scripts\python -m pytest tests -q                # tests
 ```
 Open the app once while online so every panel's snapshot is saved for offline mode.
