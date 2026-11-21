@@ -10,25 +10,19 @@ Why: the browser asked Earth Engine directly for dozens of tiles at once and got
 from __future__ import annotations
 
 import datetime as dt
-import random
 import threading
-import time
 
-import requests
 from fastapi import APIRouter, HTTPException, Response
 
-from app.core.cache import NoDataError, cached
+from app.core.cache import NoDataError
 from app.core.config import SNAPSHOT_DIR, settings
+from app.core.ee_http import BACKGROUND, EEFetchError, ee_get
 
 router = APIRouter(prefix="/api/forest/tiles", tags=["forest-tiles"])
 
 TILE_DIR = SNAPSHOT_DIR / "tiles"
 LAYERS = {"health", "forest_mask", "suitability", "satellite_recent"}
-MAX_CONCURRENT = 4
-MAX_ATTEMPTS = 6
-_sem = threading.BoundedSemaphore(MAX_CONCURRENT)
 _refresh_lock = threading.Lock()
-_session = requests.Session()
 
 
 def _layers(force: bool = False) -> dict:
@@ -74,29 +68,18 @@ def fetch_tile(layer: str, z: int, x: int, y: int) -> bytes:
     if info.get("_stale"):
         raise NoDataError("layer definitions are stale (Earth Engine unavailable)")
     url = info[layer]["url"]
-    refreshed = False
-    for attempt in range(MAX_ATTEMPTS):
-        with _sem:
-            try:
-                r = _session.get(url.format(z=z, x=x, y=y), timeout=120)
-            except requests.RequestException:
-                r = None
-        if r is not None and r.status_code == 200:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            tmp = path.with_suffix(".tmp")
-            tmp.write_bytes(r.content)
-            tmp.replace(path)
-            return r.content
-        code = r.status_code if r is not None else 0
-        if code in (400, 401, 403, 404) and not refreshed:  # map id expired -> new one
-            url = _layers(force=True)[layer]["url"]
-            refreshed = True
-            continue
-        if code in (0, 429, 500, 502, 503, 504):
-            time.sleep(min(2 ** attempt, 12) + random.random())
-            continue
-        break
-    raise RuntimeError(f"Earth Engine tile {layer}/{z}/{x}/{y} failed (HTTP {code})")
+    try:
+        data = ee_get(url.format(z=z, x=x, y=y), kind=BACKGROUND)
+    except EEFetchError as e:
+        if e.status not in (400, 401, 403, 404):
+            raise
+        url = _layers(force=True)[layer]["url"]  # map id expired -> get a new one, try once more
+        data = ee_get(url.format(z=z, x=x, y=y), kind=BACKGROUND)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_bytes(data)
+    tmp.replace(path)
+    return data
 
 
 @router.get("/{layer}/{z}/{x}/{y}.png")

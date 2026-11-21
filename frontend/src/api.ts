@@ -37,7 +37,7 @@ export type AlertProps = {
   recent_window: string[]
   prior_window: string[]
   attribution?: Attribution
-  images?: { before?: string; after?: string; error?: string }
+  images?: { before?: string; after?: string; error?: string; retryable?: boolean }
 }
 
 export type Feature<P> = { type: 'Feature'; geometry: GeoJSON.Geometry; properties: P }

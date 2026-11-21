@@ -15,6 +15,7 @@ from app.core import aoi
 from app.core.cache import NoDataError, cached, read_snapshot, write_snapshot
 from app.core.config import MODELS_DIR, PROCESSED_DIR, SNAPSHOT_DIR, settings
 from app.core.ee_client import ee_status, init_ee
+from app.core.ee_http import PRIORITY, EEFetchError, ee_get
 
 router = APIRouter(prefix="/api/forest", tags=["forest"])
 ALERTS_ALL = PROCESSED_DIR / "alerts_all.geojson"
@@ -137,16 +138,19 @@ def _thumbs(p: dict) -> dict:
             pri = tuple(dt.date.fromisoformat(x) for x in p["prior_window"])
             urls = thumbnails(p["lon"], p["lat"], rec, pri)
             for k, path in names.items():
-                # EE answers 429 when the map is also pulling tiles; back off and retry
-                for attempt in range(4):
-                    r = requests.get(urls[k], timeout=120)
-                    if r.status_code != 429:
-                        break
-                    time.sleep(2 * (attempt + 1))
-                r.raise_for_status()
-                path.write_bytes(r.content)
+                if path.exists():
+                    continue
+                # priority slot + long backoff: background tile fetching can't starve what the user is viewing
+                data = ee_get(urls[k], kind=PRIORITY)
+                tmp = path.with_suffix(".tmp")
+                tmp.write_bytes(data)
+                tmp.replace(path)
+        except EEFetchError as e:
+            busy = e.status == 429
+            return {"error": "Earth Engine is busy (rate limit) — tap Retry in a moment." if busy else str(e),
+                    "retryable": True}
         except Exception as e:  # noqa: BLE001
-            return {"error": f"{type(e).__name__}: {str(e)[:150]}"}
+            return {"error": f"{type(e).__name__}: {str(e)[:150]}", "retryable": True}
     for k, path in names.items():
         if path.exists():
             out[k] = f"/api/forest/thumbs/{path.name}"

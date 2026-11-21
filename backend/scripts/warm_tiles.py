@@ -1,7 +1,8 @@
 """Pre-fetch live map tiles over KP into the proxy's disk cache (instant demo + offline map detail).
 
-Run:  .venv\\Scripts\\python scripts\\warm_tiles.py [--layers health,suitability] [--zooms 9,10]
-Uses the same throttled/retrying fetch as the API, and only tiles that overlap KP.
+Run (backend must be running):  .venv\\Scripts\\python scripts\\warm_tiles.py [--layers health,suitability] [--zooms 9,10]
+Requests go through the running API (/api/forest/tiles/...), so all Earth Engine traffic shares the
+server's single throttle and user-facing requests keep priority. Only tiles that overlap KP.
 """
 from __future__ import annotations
 
@@ -15,8 +16,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from shapely.geometry import box  # noqa: E402
 
+import requests  # noqa: E402
+
 from app.core.aoi import kp_gdf  # noqa: E402
-from app.core.ee_client import ee_status, init_ee  # noqa: E402
+
+API = "http://localhost:8000"
 
 
 def tile_bounds(x: int, y: int, z: int):
@@ -41,13 +45,16 @@ def main() -> None:
     ap.add_argument("--layers", default="health,suitability")
     ap.add_argument("--zooms", default="9,10")
     a = ap.parse_args()
-    assert init_ee(), ee_status()
-    from app.modules.forest.tiles import fetch_tile
+    requests.get(f"{API}/api/health", timeout=60).raise_for_status()
+
+    def fetch_tile(layer, z, x, y):
+        r = requests.get(f"{API}/api/forest/tiles/{layer}/{z}/{x}/{y}.png", timeout=600)
+        r.raise_for_status()
 
     jobs = [(l, z, x, y) for l in a.layers.split(",") for z in map(int, a.zooms.split(",")) for x, y in kp_tiles(z)]
     print(f"[warm] {len(jobs)} tiles ({a.layers} @ z{a.zooms})", flush=True)
     t, ok, failed = time.time(), 0, []
-    with ThreadPoolExecutor(max_workers=4) as ex:
+    with ThreadPoolExecutor(max_workers=3) as ex:
         futs = {ex.submit(fetch_tile, *j): j for j in jobs}
         for i, fu in enumerate(as_completed(futs), 1):
             try:

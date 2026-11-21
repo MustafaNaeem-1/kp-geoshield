@@ -34,6 +34,7 @@ export function AlertDetail({ id, onClose }: { id: string; onClose: () => void }
   const [a, setA] = useState<AlertProps | null>(null)
   const [err, setErr] = useState<string | null>(null)
   const [sent, setSent] = useState(false)
+  const [retrying, setRetrying] = useState(false)
 
   useEffect(() => {
     setA(null)
@@ -41,6 +42,15 @@ export function AlertDetail({ id, onClose }: { id: string; onClose: () => void }
     setSent(false)
     api.alert(id).then((f) => setA(f.properties)).catch((e) => setErr(String(e)))
   }, [id])
+
+  const retryImages = () => {
+    setRetrying(true)
+    api
+      .alert(id)
+      .then((f) => setA(f.properties))
+      .catch((e) => setErr(String(e)))
+      .finally(() => setRetrying(false))
+  }
 
   return (
     <div className="space-y-3">
@@ -72,7 +82,16 @@ export function AlertDetail({ id, onClose }: { id: string; onClose: () => void }
           {a.images?.before && a.images?.after ? (
             <BeforeAfter before={a.images.before} after={a.images.after} />
           ) : (
-            <p className="text-xs text-amber-400">Imagery unavailable{a.images?.error ? `: ${a.images.error}` : ''}</p>
+            <div className="flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-lg border border-[#1f2d27] p-4 text-center">
+              <p className="text-xs text-amber-300">{retrying ? 'Fetching satellite images…' : a.images?.error ?? 'Imagery unavailable'}</p>
+              <button
+                onClick={retryImages}
+                disabled={retrying}
+                className="rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-semibold hover:bg-emerald-600 disabled:bg-slate-600"
+              >
+                {retrying ? 'Retrying…' : 'Retry'}
+              </button>
+            </div>
           )}
 
           {a.attribution && (
